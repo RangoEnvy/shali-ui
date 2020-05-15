@@ -2,8 +2,11 @@
   "name": "shali-ui",
   "version": "1.0.0",
   "description": "a ui framework base vue3",
-  "main": "index.js",
+  "main": "dist/shali-ui.min.js",
   "scripts": {
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "rango": "webpack-dev-server --config build/webpack.rango.conf.js",
+    "build": "webpack --progress --config build/webpack.prod.conf.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +25,13 @@
   "homepage": "https://github.com/RangoEnvy/shali-ui#readme",
   "dependencies": {
     "scss": "^0.2.4",
-    "vconsole": "^3.3.4"
+    "ts-loader": "^7.0.4",
+    "tslint": "^6.1.2",
+    "tslint-loader": "^3.5.4",
+    "typescript": "^3.8.3",
+    "vconsole": "^3.3.4",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   }
 }
