@@ -6,10 +6,11 @@
 </template>
 
 <script lang="ts">
-    //import { defineComponent, ref } from '../lib/vue3/vue.global.js';
-    import { defineComponent, ref } from "vue";
+    import { defineComponent, ref } from '../lib/vue3/vue';
+    //import { defineComponent, ref } from "vue";
     /* console.log(typeof defineComponent);
     console.log(typeof ref); */
+    console.log("debugger");
 
     export default defineComponent({
         setup() {

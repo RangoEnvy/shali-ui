@@ -21,6 +21,7 @@
   ],
   "include": [
       "./src/**/*.ts",
-      "./src/**/*.vue", "src/App.vue.js"
+      "./src/**/*.vue", 
+      "src/App.vue.js"
   ]
 }
