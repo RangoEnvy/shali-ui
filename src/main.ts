@@ -1,6 +1,7 @@
-import { createApp } from '../lib/vue3/vue'	// 这里用的是vue3自己编译的包
-import App from './App.vue'
-createApp(App).mount('#app')
+//import { createApp } from '../lib/vue3/vue'	// 这里用的是vue3自己编译的包
+let vue = require("../lib/vue3/vue");
+import App from "./App";
+vue.createApp(App).mount('#app')
 
 /* createApp(App)
     .use(router)
