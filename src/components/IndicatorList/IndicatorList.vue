@@ -15,7 +15,7 @@
 let vue = require("../../../lib/vue3/vue");
 import { getComponentStyle } from "../common/StyleCommon";
 import { RefArray, RefNumber } from "../common/interface";
-import Indicator from "./Indicator.vue";
+//import Indicator from "./Indicator.vue";
 
 // 写在这里，同一个组件的不同实例会share的
 let indicatorsLeft : RefArray = vue.ref([]);
@@ -24,7 +24,7 @@ let props : Object = vue.ref({});
 export default vue.defineComponent({
   name: "IndicatorList",
   components: {
-    Indicator,
+    //Indicator,
   },
   props: {
     width: {

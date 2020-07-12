@@ -67,12 +67,20 @@ export default vue.defineComponent({
         return cardList.value.length > 0 ? cardList.value.length : -1;
     })
 
+    function onCardUnmounted(card){
+      for (let i = 0; i < cardList.value.length; ++i){
+        if (cardList.value[i] === card){
+          cardList.value.splice(i, 1);
+        }
+      }
+    }
+
     function onCardMounted(card){
         cardList.value.push(card);
         selectedIndex.value = 0;
 
       cardList.value.forEach(card => {
-        console.log("forEach width: " + width.value);
+        //console.log("forEach width: " + width.value);
         card.value.setLeft(-parseInt(width.value + ""));
       })
 
@@ -93,7 +101,7 @@ export default vue.defineComponent({
     function onTouchStart(e) {
       clearInterval(autoInterval.value);
 
-      console.log(selectedIndex.value);
+      //console.log(selectedIndex.value);
       lastPosition.value = e.touches[0].clientX;
       sumOffset.value = 0;
 
@@ -124,7 +132,7 @@ export default vue.defineComponent({
     }
 
     function onTouchEnd(e) {
-      console.log("onTouchEnd offset: " + sumOffset.value);
+      //console.log("onTouchEnd offset: " + sumOffset.value);
       if (sumOffset.value < -100 && cardList.value[selectedIndex.value + 1]) {
         // 往右边划到下一个
         //cardList[selectedIndex].slideToRight();
@@ -140,7 +148,7 @@ export default vue.defineComponent({
         sumOffset.value > 100 &&
         cardList.value[selectedIndex.value - 1]
       ) {
-        console.log("往左滑到下一个");
+        //console.log("往左滑到下一个");
         // 往左边滑到下一个
         //cardList[selectedIndex].slideToLeft();
         cardList.value[selectedIndex.value].value.slideToSide(1);
@@ -151,7 +159,7 @@ export default vue.defineComponent({
           props.onIndexChange(selectedIndex.value);
         }
       } else {
-        console.log("惯性回位");
+        //console.log("惯性回位");
         // 惯性回位
         if (cardList.value[selectedIndex.value - 1]) {
           //cardList[selectedIndex - 1].slideToLeft();
@@ -175,8 +183,9 @@ export default vue.defineComponent({
     }
     
     //vue.provide(onCardMountedSymbol, onCardMounted);
-    console.log("slidecontainer set onCardMounted");
+    //console.log("slidecontainer set onCardMounted");
     vue.provide(Symbol.for("onCardMounted"), onCardMounted);
+    vue.provide(Symbol.for("onCardUnmounted"), onCardUnmounted);
 
     return {
       selectedIndex,

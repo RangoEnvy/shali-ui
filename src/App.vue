@@ -10,12 +10,15 @@
         </div> -->
 
         <!-- <slide-card>
-            <indicator-list :ref="happy" :numOfIndicators="3" :selectedIndex="jiajia"></indicator-list>
+            
         </slide-card> -->
+        <input v-model="numOfSlideCard">
 
-        <slide-container>
-            <slide-card v-for="num in arr" :key="num">
-                <div style="height: 100%;width: 100%;background-color: red;">
+        <indicator-list :ref="happy" :numOfIndicators="numOfIndicators" :selectedIndex="jiajia"></indicator-list>
+
+        <slide-container :width="width" :userStyle="userStyle">
+            <slide-card v-for="num in arr" :key="num" :userStyle="userStyle">
+                <div style="height: 100%;width: 100%;background-color: red;border: black 1px solid;">
                     {{num}}
                 </div>
             </slide-card>
@@ -25,17 +28,41 @@
 
 <script lang="ts">
     let vue = require("../lib/vue3/vue");
-    import IndicatorList from "./components/IndicatorList/IndicatorList.vue";
+    //import IndicatorList from "./components/IndicatorList/IndicatorList.vue";
     import SlideCard from "./components/SlideCard/SlideCard.vue";
     import SlideContainer from "./components/SlideContainer/SlideContainer.vue";
     export default vue.defineComponent({
         components: {
             SlideCard,
-            IndicatorList,
+            //IndicatorList,
             SlideContainer,
         },
         setup() {
+            let numOfSlideCard = vue.ref(3);
+            let width = vue.ref(document.documentElement.clientWidth);
+            let userStyle = vue.ref({
+                width: document.documentElement.clientWidth + 'px',
+            });
             let arr = vue.ref([1, 2, 3]);
+
+            vue.watch(numOfSlideCard,
+            (num, prevNum) => {
+                
+                if (!num)
+                    return;
+
+                num = parseInt(num);
+
+                if (num > arr.value.length){
+                    for (let i = arr.value.length + 1; i <= num; ++i){
+                        arr.value.push(i);
+                    }
+                }else if (num < arr.value.length){
+                    arr.value.length = num;
+                }
+            });
+
+            let numOfIndicators = vue.ref(3);
             let happy = vue.ref(null);
             let obj = {
                 a: {
@@ -63,6 +90,9 @@
             }
 
             return {
+                width, 
+                userStyle,
+                numOfSlideCard,
                 cold,
                 inc,
                 rango,
@@ -71,12 +101,16 @@
                 add,
                 happy,
                 arr,
+                numOfIndicators,
             }
         },
     });
 </script>
 
 <style scoped>
+    body{
+        margin: 0;
+    }
     h1 {
         font-family: Arial, Helvetica, sans-serif;
     }

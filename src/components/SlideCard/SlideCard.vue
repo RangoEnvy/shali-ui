@@ -32,12 +32,14 @@ export default vue.defineComponent({
       transform: "translateX(" + left.value + "px)",
       transitionDuration: "0"
     };
+    let uuid = Math.random() % 65536;
     let componentStyle = getComponentStyle(props, defaultStyle);
     left.value = componentStyle.value && componentStyle.value.width ? -1 * parseInt(componentStyle.value.width) : -750;
     
     //let onCardMounted: Function = vue.inject(onCardMountedSymbol);
-    console.log("slidecard get onCardMounted");
+    //console.log("slidecard get onCardMounted");
     let onCardMounted: Function = vue.inject(Symbol.for("onCardMounted"));
+    let onCardUnmounted: Function = vue.inject(Symbol.for("onCardUnmounted"));
 
     vue.onMounted(() => {
       slideCard.value.setLeft = setLeft;
@@ -45,6 +47,11 @@ export default vue.defineComponent({
       slideCard.value.slideToCenter = slideToCenter;
       slideCard.value.slideToSide = slideToSide;
       onCardMounted(slideCard);
+    })
+
+    vue.onBeforeUnmount(() => {
+      // 这里加入销毁的逻辑
+      onCardUnmounted(slideCard);
     })
 
     function slide(offset){
@@ -55,7 +62,7 @@ export default vue.defineComponent({
         transform: "translateX(" + left.value + "px)",
         transitionDuration: "0",
       };
-      console.log("slide componentStyle.transform: " + componentStyle.value.transform);
+      //console.log("slide componentStyle.transform: " + componentStyle.value.transform);
     }
 
     function setLeft(l) {
@@ -65,12 +72,12 @@ export default vue.defineComponent({
         transform: "translateX(" + left.value + "px)",
         transitionDuration: "0",
       };
-      console.log("setLeft componentStyle.transform: " + componentStyle.value.transform);
+      //console.log("setLeft componentStyle.transform: " + componentStyle.value.transform);
     }
 
     function slideToCenter() {
       // 把卡片滑动到中间
-      console.log("slideToCenter");
+      //console.log("slideToCenter");
       left.value = 0;
       componentStyle.value = {
         ...componentStyle.value,
@@ -82,7 +89,7 @@ export default vue.defineComponent({
     function slideToSide(direction) {
       // 把卡片滑动到两边
       if (direction > 0) {
-        console.log("slideToRight");
+        //console.log("slideToRight");
         left.value = parseInt(componentStyle.value.width);
         componentStyle.value = {
           ...componentStyle.value,
@@ -90,7 +97,7 @@ export default vue.defineComponent({
           transitionDuration: "0.5s",
         };
       } else {
-        console.log("slideToLeft");
+        //console.log("slideToLeft");
         left.value = -1 * parseInt(componentStyle.value.width);
         componentStyle.value = {
           ...componentStyle.value,

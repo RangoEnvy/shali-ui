@@ -66,6 +66,12 @@ module.exports = (env = {}) => ({
         contentBase: __dirname,
         overlay: true,
         publicPath: '/',
-        historyApiFallback: true
+        historyApiFallback: true,
+        host: "192.168.31.131",
+        disableHostCheck: false,
+        allowedHosts: [
+            "localhost",
+            "192.168.31.131"
+        ]
     }
 })
