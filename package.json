@@ -1,6 +1,6 @@
 {
   "name": "shali-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a ui framework base vue3",
   "main": "dist/shali-ui.min.js",
   "scripts": {
